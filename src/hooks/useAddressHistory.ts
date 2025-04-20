@@ -4,6 +4,7 @@ import { Address } from '../types';
 export const useAddressHistory = () => {
   const [history, setHistory] = useState<Address[]>([]);
 
+  // Load history from localStorage on component mount
   useEffect(() => {
     const savedHistory = localStorage.getItem('addressHistory');
     if (savedHistory) {
@@ -28,12 +29,17 @@ export const useAddressHistory = () => {
     }
   };
 
+  const removeFromHistory = (addressId: number) => {
+    setHistory(prevHistory => prevHistory.filter(item => item.id !== addressId));
+    localStorage.setItem('addressHistory', JSON.stringify(history.filter(item => item.id !== addressId)));
+  };
+
   const clearHistory = () => {
     setHistory([]);
     localStorage.removeItem('addressHistory');
   };
 
-  return { history, addToHistory, clearHistory };
+  return { history, addToHistory, removeFromHistory, clearHistory };
 };
 
 export default useAddressHistory;

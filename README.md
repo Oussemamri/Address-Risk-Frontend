@@ -320,7 +320,12 @@ yarn test
 
 ## Deployment
 
-The application can be deployed to various hosting platforms:
+The application is currently deployed and accessible at:
+**[https://address-risk-frontend.vercel.app/](https://address-risk-frontend.vercel.app/)**
+
+You can visit the link above to use the application without setting up a local environment.
+
+For deploying your own instance, the application can be deployed to various hosting platforms:
 
 ### Vercel (Recommended)
 

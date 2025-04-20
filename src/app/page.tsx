@@ -5,7 +5,6 @@ import AddressSearch from '../components/AddressSearch';
 import AddressCard from '../components/AddressCard';
 import RiskDetails from '../components/RiskDetails';
 import SearchHistory from '../components/SearchHistory';
-import Map from '../components/Map';
 import { Address, RiskResponse } from '../types';
 import { getAddressRisks } from '../services/api';
 import { useAddressHistory } from '../hooks/useAddressHistory';
@@ -28,6 +27,11 @@ export default function HomePage() {
   const handleAddressFound = (address: Address) => {
     setSelectedAddress(address);
     addToHistory(address);
+    setShowRiskDetails(false);
+  };
+
+  const handleSelectFromHistory = (address: Address) => {
+    setSelectedAddress(address);
     setShowRiskDetails(false);
   };
 
@@ -94,7 +98,7 @@ export default function HomePage() {
         </div>
 
         <div>
-          <SearchHistory />
+          <SearchHistory onSelectAddress={handleSelectFromHistory} />
           
           {selectedAddress && (
             <div className="mt-6">
