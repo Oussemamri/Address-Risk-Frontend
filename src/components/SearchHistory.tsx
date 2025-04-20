@@ -1,14 +1,19 @@
 import React from 'react';
-import { useAddressHistory } from '../hooks/useAddressHistory';
 import { Address } from '../types';
 
 interface SearchHistoryProps {
+  history: Address[];
   onSelectAddress: (address: Address) => void;
+  onRemoveAddress: (id: number) => void;
+  onClearHistory: () => void;
 }
 
-const SearchHistory: React.FC<SearchHistoryProps> = ({ onSelectAddress }) => {
-  const { history, removeFromHistory, clearHistory } = useAddressHistory();
-
+const SearchHistory: React.FC<SearchHistoryProps> = ({ 
+  history, 
+  onSelectAddress, 
+  onRemoveAddress, 
+  onClearHistory 
+}) => {
   return (
     <div className="mt-4">
       <h2 className="text-lg font-semibold">Search History</h2>
@@ -30,7 +35,7 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ onSelectAddress }) => {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  removeFromHistory(address.id);
+                  onRemoveAddress(address.id);
                 }}
                 className="ml-2 p-1 text-gray-500 hover:text-red-600"
                 title="Remove from history"
@@ -45,7 +50,7 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ onSelectAddress }) => {
       )}
       {history.length > 0 && (
         <button
-          onClick={clearHistory}
+          onClick={onClearHistory}
           className="mt-3 px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
         >
           Clear All History
