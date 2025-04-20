@@ -1,10 +1,10 @@
 import { Address, RiskResponse } from '../types';
 
-const API_BASE_URL = 'http://63.178.19.158:8000/api';
+const API_BASE_URL = 'https://63.178.19.158.nip.io/api';
 
 export const searchAddress = async (query: string): Promise<Address> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/addresses`, {
+    const response = await fetch(`${API_BASE_URL}/addresses/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export const searchAddress = async (query: string): Promise<Address> => {
 
 export const getAddressRisks = async (addressId: number): Promise<RiskResponse> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/addresses/${addressId}/risks`);
+    const response = await fetch(`${API_BASE_URL}/addresses/${addressId}/risks/`);
 
     if (!response.ok) {
       throw new Error(`Error fetching risks: ${response.statusText}`);
