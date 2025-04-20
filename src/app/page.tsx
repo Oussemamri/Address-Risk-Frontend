@@ -22,7 +22,9 @@ export default function HomePage() {
   const [showRiskDetails, setShowRiskDetails] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const { addToHistory } = useAddressHistory();
+  
+  // Get the full history object and functions
+  const { history, addToHistory, removeFromHistory, clearHistory } = useAddressHistory();
 
   const handleAddressFound = (address: Address) => {
     setSelectedAddress(address);
@@ -98,7 +100,13 @@ export default function HomePage() {
         </div>
 
         <div>
-          <SearchHistory onSelectAddress={handleSelectFromHistory} />
+          {/* Pass the history data directly to avoid synchronization issues */}
+          <SearchHistory 
+            history={history}
+            onSelectAddress={handleSelectFromHistory}
+            onRemoveAddress={removeFromHistory}
+            onClearHistory={clearHistory}
+          />
           
           {selectedAddress && (
             <div className="mt-6">
